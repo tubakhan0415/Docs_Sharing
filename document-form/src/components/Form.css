@@ -1,0 +1,104 @@
+.formbold-main-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    min-height: 100px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.formbold-form-wrapper {
+    width: 100%;
+}
+
+.formbold-form-wrapper h3, .formbold-form-wrapper p {
+    color: #07074d;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"], input[type="email"], select, input[type="file"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #6a64f1;
+    color: white;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #5a54d1;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #6a64f1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #5a54d1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.address-container {
+    margin-bottom: 1.5rem;
+}
+
+.address-container label {
+    margin-bottom: 0.25rem;
+}
+
+.checkbox-group {
+    margin-top: 0.5rem;
+}
+
+#dynamicForm > div {
+    margin-bottom: 20px;
+}
+
+#businessForm, #doctorForm {
+    margin-top: 20px;
+}
