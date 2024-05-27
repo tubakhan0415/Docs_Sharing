@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// File storage configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
@@ -133,7 +134,6 @@ app.post('/login', (req, res) => {
     }
 });
 
-
 app.post('/submit-documents', upload, async (req, res) => {
     try {
         const documents = {};
@@ -180,7 +180,6 @@ app.post('/submit-documents', upload, async (req, res) => {
     }
 });
 
-
 const authMiddleware = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
@@ -197,7 +196,6 @@ const authMiddleware = (req, res, next) => {
         next();
     });
 };
-
 
 app.get('/dashboard', authMiddleware, async (req, res) => {
     try {
@@ -247,7 +245,6 @@ app.get('/dashboard', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Error fetching data', error: err.toString() });
     }
 });
-
 
 app.post('/change-password', authMiddleware, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
