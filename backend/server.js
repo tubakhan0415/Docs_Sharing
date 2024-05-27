@@ -183,19 +183,29 @@ app.post('/submit-documents', upload, async (req, res) => {
 
 const authMiddleware = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
-    if (!token) return res.status(403).json({ message: 'No token provided' });
+    if (!token) {
+        console.log('No token provided');
+        return res.status(403).json({ message: 'No token provided' });
+    }
 
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
-        if (err) return res.status(500).json({ message: 'Failed to authenticate token' });
+        if (err) {
+            console.log('Token verification failed:', err);
+            return res.status(500).json({ message: 'Failed to authenticate token' });
+        }
         req.userId = decoded.id;
         next();
     });
 };
 
+
 app.get('/dashboard', authMiddleware, async (req, res) => {
     try {
-        const applicants = await Applicant.find();
+        const { filter } = req.query; // Get the filter from query parameters
+        const applicants = await Applicant.find({ employmentType: filter }); // Find applicants based on the filter
+
         const formattedData = applicants.map(applicant => ({
+            employmentType: applicant.employmentType,
             'PAN_no': applicant.panCardNumber,
             '3 months salary slip': applicant.documents['3months_salary'],
             '6 months bank statement': applicant.documents['bank_statement_6mo'],
@@ -237,6 +247,7 @@ app.get('/dashboard', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Error fetching data', error: err.toString() });
     }
 });
+
 
 app.post('/change-password', authMiddleware, async (req, res) => {
     const { currentPassword, newPassword } = req.body;

@@ -34,17 +34,17 @@ function DynamicForm({ profession }) {
                 )}
                 {doctorType === 'Salaried' && (
                     <>
-                        <label>Highest Degree Certificate: <input type="file" name="degree_certificate" /></label>
+                        <label>Highest Degree: <input type="file" name="degree_certificate" /></label>
                         <label>Registration Certificate: <input type="file" name="registration_certificate" /></label>
                         <label>Current Address Proof: <input type="file" name="address_proof" /></label>
                         <label>I-card (Company): <input type="file" name="company_id" /></label>
-                        <label>Last 6 months Bank Statement: <input type="file" name="bank_statement_6mo" /></label>
+                        <label>Last 6 months Bank Statement(Current & Saving): <input type="file" name="bank_statement_6mo" /></label>
                         <label>Last 3 months Salary Slip: <input type="file" name="salary_slip_3mo" /></label>
                     </>
                 )}
                 {doctorType === 'SelfEmployed' && (
                     <>
-                        <label>Highest Degree Certificate: <input type="file" name="degree_certificate" /></label>
+                        <label>Highest Degree: <input type="file" name="degree_certificate" /></label>
                         <label>Registration Certificate: <input type="file" name="registration_certificate" /></label>
                         <label>Current Address Proof: <input type="file" name="address_proof" /></label>
                         <label>Last 1 year Bank Statement (Current & Saving): <input type="file" name="bank_statement_1yr" /></label>
@@ -56,7 +56,7 @@ function DynamicForm({ profession }) {
                 )}
                 {doctorType === 'Both' && (
                     <>
-                        <label>Highest Degree Certificate: <input type="file" name="degree_certificate" /></label>
+                        <label>Highest Degree: <input type="file" name="degree_certificate" /></label>
                         <label>Registration Certificate: <input type="file" name="registration_certificate" /></label>
                         <label>Current Address Proof: <input type="file" name="address_proof" /></label>
                         <label>I-card (Company): <input type="file" name="company_id" /></label>
@@ -175,7 +175,7 @@ function DynamicForm({ profession }) {
                 )}
                 {profession === 'Doctor' && (
                     <>
-                        <label>Doctor Type:</label>
+                        <label>Profession Type:</label>
                         <select id="doctorType" name="doctor_type" onChange={handleDoctorTypeChange}>
                             <option value="">Select Type</option>
                             <option value="Salaried">Salaried</option>
