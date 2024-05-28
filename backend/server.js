@@ -11,6 +11,9 @@ const app = express();
 const port = 3000;
 const SECRET_KEY = process.env.SECRET_KEY;
 
+// Hardcoded MongoDB URI for testing
+const MONGO_URI = 'mongodb+srv://TubaKhan:Tub@0415@cluster0.busbjcx.mongodb.net/Docs_sharing?retryWrites=true&w=majority';
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,7 +65,7 @@ const upload = multer({
     { name: 'partner3_aadhaar_card', maxCount: 1 }
 ]);
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log('Database connection error:', err));
 
@@ -242,6 +245,25 @@ app.get('/dashboard', authMiddleware, async (req, res) => {
     } catch (err) {
         console.error('Error fetching applicants:', err);
         res.status(500).json({ message: 'Error fetching data', error: err.toString() });
+    }
+});
+
+app.post('/change-password', authMiddleware, async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    try {
+        const user = await User.findById(req.userId);
+        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) return res.status(401).json({ success: false, message: 'Current password is incorrect' });
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save();
+
+        res.json({ success: true, message: 'Password changed successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.toString() });
     }
 });
 
