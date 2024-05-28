@@ -60,9 +60,10 @@ function Dashboard() {
 
     const formatValue = (value) => {
         if (typeof value === 'string' && value.startsWith('uploads/')) {
+            const filename = value.split('/').pop();
             return (
-                <a href={`http://localhost:3000/${value.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer">
-                    <button>View File</button>
+                <a href={`http://localhost:3000/${value}`} download={filename}>
+                  <button>Download File</button>
                 </a>
             );
         }

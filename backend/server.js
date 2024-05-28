@@ -5,16 +5,18 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
-const SECRET_KEY = 'e1c35d57df5c6d8c8b60d8f1a1a5dfbb635e08e9e635df1baaa7b5b5e5e5f6a9';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// File storage configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
@@ -60,10 +62,8 @@ const upload = multer({
     { name: 'partner3_aadhaar_card', maxCount: 1 }
 ]);
 
-mongoose.connect('mongodb://localhost:27017/loanApplicationDB', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB connected'))
     .catch(err => console.log('Database connection error:', err));
 
 const UserSchema = new mongoose.Schema({
@@ -133,7 +133,6 @@ app.post('/login', (req, res) => {
     }
 });
 
-
 app.post('/submit-documents', upload, async (req, res) => {
     try {
         const documents = {};
@@ -180,7 +179,6 @@ app.post('/submit-documents', upload, async (req, res) => {
     }
 });
 
-
 const authMiddleware = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
@@ -197,7 +195,6 @@ const authMiddleware = (req, res, next) => {
         next();
     });
 };
-
 
 app.get('/dashboard', authMiddleware, async (req, res) => {
     try {
@@ -245,26 +242,6 @@ app.get('/dashboard', authMiddleware, async (req, res) => {
     } catch (err) {
         console.error('Error fetching applicants:', err);
         res.status(500).json({ message: 'Error fetching data', error: err.toString() });
-    }
-});
-
-
-app.post('/change-password', authMiddleware, async (req, res) => {
-    const { currentPassword, newPassword } = req.body;
-    try {
-        const user = await User.findById(req.userId);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-
-        const isMatch = await bcrypt.compare(currentPassword, user.password);
-        if (!isMatch) return res.status(401).json({ success: false, message: 'Current password is incorrect' });
-
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(newPassword, salt);
-        await user.save();
-
-        res.json({ success: true, message: 'Password changed successfully' });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err.toString() });
     }
 });
 
