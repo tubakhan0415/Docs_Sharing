@@ -61,7 +61,7 @@ const upload = multer({
     { name: 'partner3_aadhaar_card', maxCount: 1 }
 ]);
 
-mongoose.connect('mongodb://localhost:27017/loanApplicationDB', {
+mongoose.connect('mongodb+srv://<credentials>@cluster0.guksso0.mongodb.net/Docs', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('MongoDB connected'))
