@@ -62,7 +62,7 @@ function Dashboard() {
         if (typeof value === 'string' && value.startsWith('uploads/')) {
             const filename = value.split('/').pop();
             return (
-                <a href={`http://localhost:3000/${value}`} download={filename}>
+                <a href={`http://52.66.26.177:3000/${value}`} download={filename}>
                   <button>Download File</button>
                 </a>
             );
