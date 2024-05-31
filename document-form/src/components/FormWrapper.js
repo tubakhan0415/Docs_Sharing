@@ -13,7 +13,7 @@ function FormWrapper() {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        fetch('http://localhost:3000/submit-documents', {
+        fetch('http://52.66.26.177:3000/submit-documents', {
             method: 'POST',
             body: formData,
         })
