@@ -12,7 +12,7 @@ const port = 3000;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 // Hardcoded MongoDB URI for testing
-const MONGO_URI = 'mongodb+srv://TubaKhan:Tub@0415@cluster0.busbjcx.mongodb.net/Docs_sharing?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://TubaKhan:Tub%400415@cluster0.busbjcx.mongodb.net/Docs_sharing';
 
 app.use(cors());
 app.use(express.json());
