@@ -34,7 +34,7 @@ function Dashboard() {
         const fetchData = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await fetch('http://localhost:3000/dashboard', {
+                const response = await fetch('http://52.66.26.177:3000/dashboard', {
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
 
