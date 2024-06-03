@@ -34,7 +34,7 @@ function Dashboard() {
         const fetchData = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await fetch('http://52.66.26.177:3000/dashboard', {
+                const response = await fetch('http://172.31.38.238:3000/dashboard', {
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
 
@@ -62,7 +62,7 @@ function Dashboard() {
         if (typeof value === 'string' && value.startsWith('uploads/')) {
             const filename = value.split('/').pop();
             return (
-                <a href={`http://52.66.26.177:3000/${value}`} download={filename}>
+                <a href={`http://172.31.38.238:3000/${value}`} download={filename}>
                   <button>Download File</button>
                 </a>
             );
