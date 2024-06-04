@@ -8,7 +8,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = 4000;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 // Hardcoded MongoDB URI for testing
